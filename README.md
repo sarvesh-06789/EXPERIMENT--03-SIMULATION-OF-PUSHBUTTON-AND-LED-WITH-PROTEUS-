@@ -71,20 +71,57 @@ We are now at the last part of step by step guide on how to simulate STM32 proje
 
 
 ## STM 32 CUBE PROGRAM :
+```
+#include "main.h"
+#include "stdbool.h"
 
+bool button;
+void led_blink();
 
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+
+int main(void)
+{
+  HAL_Init();
+  SystemClock_Config();
+  MX_GPIO_Init();
+
+  while (1)
+  {
+    led_blink();
+  }
+}
+
+void led_blink()
+{
+  button = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0);
+
+  if (button == 0)
+  {
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+    HAL_Delay(1000);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+    HAL_Delay(1000);
+  }
+  else
+  {
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+    HAL_Delay(1000);
+  }
+}
+
+```
 
 
 ## Output screen shots of proteus  :
 
-
-
+![exp 2](https://github.com/user-attachments/assets/a5260b53-af49-40c0-9345-00cf3c9c4251)
 
 ## Proteus layout(Add pdf screen shot of circuit here)
- 
- 
- 
- 
+
+ ![exp 2layout](https://github.com/user-attachments/assets/de4339e2-4d5b-4361-9095-2018618d3cfb)
+
 ## Result :
 Interfacing a digital output and digital input  with ARM microcontroller are simulated in proteus and the results are verified.
 
